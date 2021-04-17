@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Car listing</string>
+    <string name="add_car">Add Car</string>
+    <string name="name">Name</string>
+    <string name="model">Model</string>
+    <string name="year_of_release">Year of Release</string>
+    <string name="submit">Submit</string>
+    <string name="remove">Remove</string>
+    <string name="back">Back</string>
+    <string name="are_sure_back">Are you sure you want to go back?</string>
+    <string name="continue_edit">Continue Editing</string>
+    <string name="discard">Discard</string>
+</resources>
