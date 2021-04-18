@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_baseline_add"
         android:title="@string/add_car"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_item_delete_all"
+        android:icon="@drawable/ic_baseline_delete_forever_24"
+        android:title="@string/delete_all_cars"
+        app:showAsAction="never" />
 </menu>

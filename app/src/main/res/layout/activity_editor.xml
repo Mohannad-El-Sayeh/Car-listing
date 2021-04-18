@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_editor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_editor_scene"
     tools:context=".ui.EditorActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -47,7 +49,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/allerta"
-            android:hint="@string/model"
+            android:hint="@string/brand"
             android:inputType="textShortMessage|textPersonName|textEmailAddress"
             android:maxLines="1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +76,8 @@
             android:ems="10"
             android:fontFamily="@font/allerta"
             android:hint="@string/year_of_release"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="4" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -91,4 +94,4 @@
         app:layout_constraintTop_toBottomOf="@+id/year_layout" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

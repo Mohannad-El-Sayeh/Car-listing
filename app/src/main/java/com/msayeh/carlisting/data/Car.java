@@ -3,8 +3,10 @@ package com.msayeh.carlisting.data;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "cars_table")
-public class Car {
+public class Car implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -37,5 +39,17 @@ public class Car {
 
     public String getYear() {
         return year;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

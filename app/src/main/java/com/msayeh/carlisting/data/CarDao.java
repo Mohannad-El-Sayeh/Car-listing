@@ -22,4 +22,7 @@ public interface CarDao {
 
     @Query("SELECT * FROM CARS_TABLE")
     List<Car> getAllCars();
+
+    @Query("DELETE FROM CARS_TABLE")
+    void deleteAllCars();
 }

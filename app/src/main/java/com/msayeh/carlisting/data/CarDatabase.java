@@ -19,7 +19,10 @@ abstract public class CarDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(
                     context.getApplicationContext(),
                     CarDatabase.class,
-                    "car_database").build();
+                    "car_database")
+                    .addCallback(roomCallback)
+                    .allowMainThreadQueries()
+                    .build();
         }
 
         return instance;
@@ -36,9 +39,13 @@ abstract public class CarDatabase extends RoomDatabase {
                 public void run() {
                     CarDao dao = instance.carDao();
 
+                    dao.insert(new Car("Mitsubishi", "lancer", "2016"));
+                    dao.insert(new Car("Mitsubishi", "lancer", "2016"));
+                    dao.insert(new Car("Mitsubishi", "lancer", "2016"));
+                    dao.insert(new Car("Mitsubishi", "lancer", "2016"));
 
                 }
-            });
+            }).start();
         }
     };
 }

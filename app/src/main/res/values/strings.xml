@@ -2,7 +2,7 @@
     <string name="app_name">Car listing</string>
     <string name="add_car">Add Car</string>
     <string name="name">Name</string>
-    <string name="model">Model</string>
+    <string name="brand">Brand</string>
     <string name="year_of_release">Year of Release</string>
     <string name="submit">Submit</string>
     <string name="remove">Remove</string>
@@ -10,4 +10,18 @@
     <string name="are_sure_back">Are you sure you want to go back?</string>
     <string name="continue_edit">Continue Editing</string>
     <string name="discard">Discard</string>
+    <string name="delete_all_cars">Delete all cars</string>
+    <string name="no_cars_data">No cars found.\nUse the + sign to add data.</string>
+    <string name="cataog_title">Cars Catalog</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="remove_all">Remove all cars</string>
+    <string name="sure_delete_all">Are you sure you want to delete all cars data?</string>
+    <string name="edit_label">Edit a car</string>
+    <string name="add_label">Add a car</string>
+    <string name="delete">Delete</string>
+    <string name="delete_are_sure">Are you sure you want to delete this car?</string>
+    <string name="not_valid_data">Not valid data.</string>
+    <string name="undo">Undo</string>
+    <string name="deleted">\" has been deleted.\"</string>
 </resources>
