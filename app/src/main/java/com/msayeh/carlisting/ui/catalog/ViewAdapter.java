@@ -29,8 +29,9 @@ public class ViewAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     public void removeCar(Car car) {
         deletedCar = car;
+        deletedCarIndex = cars.indexOf(deletedCar);
         cars.remove(car);
-        notifyDataSetChanged();
+        notifyItemRemoved(deletedCarIndex);
     }
 
     public void emptyTrash() {
@@ -40,12 +41,10 @@ public class ViewAdapter extends RecyclerView.Adapter<CarViewHolder> {
         }
     }
 
-    public void restoreDeleted() {
-        if(deletedCar != null){
-            cars.add(deletedCarIndex, deletedCar);
-            notifyDataSetChanged();
-            deletedCar = null;
-        }
+    public void restoreDeleted(Car car) {
+        cars.add(deletedCarIndex, car);
+        deletedCar = null;
+        notifyItemInserted(deletedCarIndex);
     }
 
     public void removeAllCars() {

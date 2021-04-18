@@ -133,19 +133,16 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
         startActivity(editIntent);
     }
 
+    Snackbar snackbar;
+
     @Override
     public void onCarSwiped(Car car) {
         progressBar.setVisibility(View.VISIBLE);
+        if(snackbar != null){
+            snackbar.dismiss();
+        }
+        snackbar = Snackbar.make(recyclerView, car.getName() + getString(R.string.deleted), BaseTransientBottomBar.LENGTH_LONG);
         mAdapter.removeCar(car);
-//        dao.delete(car);
-        Snackbar snackbar = Snackbar.make(recyclerView, car.getName() + getString(R.string.deleted), BaseTransientBottomBar.LENGTH_LONG);
-        snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                noDataTV.setVisibility(View.GONE);
-                mAdapter.restoreDeleted();
-            }
-        });
         snackbar.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar transientBottomBar, int event) {
@@ -154,6 +151,13 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
             }
         });
 
+        snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noDataTV.setVisibility(View.GONE);
+                mAdapter.restoreDeleted(car);
+            }
+        });
         snackbar.show();
         if (cars.isEmpty()) {
             noDataTV.setVisibility(View.VISIBLE);
