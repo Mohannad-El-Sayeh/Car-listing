@@ -23,5 +23,5 @@
     <string name="delete_are_sure">Are you sure you want to delete this car?</string>
     <string name="not_valid_data">Not valid data.</string>
     <string name="undo">Undo</string>
-    <string name="deleted">\" has been deleted.\"</string>
+    <string name="deleted">\ has been deleted.</string>
 </resources>

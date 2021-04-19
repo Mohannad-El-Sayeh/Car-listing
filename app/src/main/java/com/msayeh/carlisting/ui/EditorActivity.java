@@ -25,7 +25,6 @@ import com.msayeh.carlisting.data.CarDao;
 import com.msayeh.carlisting.data.CarDatabase;
 import com.msayeh.carlisting.ui.catalog.CatalogActivity;
 
-import java.io.Serializable;
 
 public class EditorActivity extends AppCompatActivity {
 

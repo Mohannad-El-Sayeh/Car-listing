@@ -24,8 +24,10 @@ import com.msayeh.carlisting.data.CarDao;
 import com.msayeh.carlisting.data.CarDatabase;
 import com.msayeh.carlisting.ui.EditorActivity;
 
-import java.io.Serializable;
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
+
 
 public class CatalogActivity extends AppCompatActivity implements ViewAdapter.OnCarInteracted {
 
@@ -122,6 +124,7 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
             onCarSwiped(cars.get(position));
 
         }
+
     };
 
     @Override
@@ -133,12 +136,19 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
         startActivity(editIntent);
     }
 
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
+
     Snackbar snackbar;
 
     @Override
     public void onCarSwiped(Car car) {
         progressBar.setVisibility(View.VISIBLE);
-        if(snackbar != null){
+        if (snackbar != null) {
             snackbar.dismiss();
         }
         snackbar = Snackbar.make(recyclerView, car.getName() + getString(R.string.deleted), BaseTransientBottomBar.LENGTH_LONG);

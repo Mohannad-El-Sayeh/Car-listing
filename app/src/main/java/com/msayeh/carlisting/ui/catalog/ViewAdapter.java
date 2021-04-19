@@ -56,7 +56,6 @@ public class ViewAdapter extends RecyclerView.Adapter<CarViewHolder> {
         void onCarClicked(Car car);
 
         void onCarSwiped(Car car);
-
     }
 
     public ViewAdapter(List<Car> cars, OnCarInteracted onCarInteracted, CarDao dao) {

@@ -15,15 +15,16 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
     TextView nameTV;
     TextView modelTV;
     TextView yearTV;
-    ConstraintLayout parent;
+    ConstraintLayout foreground_parent;
     ViewAdapter.OnCarInteracted onCarInteracted;
+
 
     public CarViewHolder(@NonNull View itemView, ViewAdapter.OnCarInteracted onCarInteracted) {
         super(itemView);
         nameTV = itemView.findViewById(R.id.tv_car_name);
         modelTV = itemView.findViewById(R.id.tv_car_model);
         yearTV = itemView.findViewById(R.id.tv_car_year);
-        parent = itemView.findViewById(R.id.parent_view);
+        foreground_parent = itemView.findViewById(R.id.foreground_parent);
         this.onCarInteracted = onCarInteracted;
     }
 
@@ -31,12 +32,13 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
         nameTV.setText(car.getName());
         modelTV.setText(car.getModel());
         yearTV.setText(car.getYear());
-        parent.setOnClickListener(new View.OnClickListener() {
+        foreground_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onCarInteracted.onCarClicked(car);
             }
         });
     }
+
 
 }
