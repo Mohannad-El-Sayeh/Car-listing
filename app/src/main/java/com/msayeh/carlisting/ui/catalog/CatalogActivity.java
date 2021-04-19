@@ -26,9 +26,6 @@ import com.msayeh.carlisting.ui.EditorActivity;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.core.Flowable;
-
-
 public class CatalogActivity extends AppCompatActivity implements ViewAdapter.OnCarInteracted {
 
     List<Car> cars;
