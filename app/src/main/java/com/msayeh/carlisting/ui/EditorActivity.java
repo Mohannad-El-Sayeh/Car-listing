@@ -74,12 +74,22 @@ public class EditorActivity extends AppCompatActivity {
                 hideKeyboard(EditorActivity.this);
                 if(inputCheck(nameET, modelET, yearET)){
                     if(isAdd){
-                        dao.insert(new Car(nameET.getText().toString(), modelET.getText().toString(), yearET.getText().toString()));
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dao.insert(new Car(nameET.getText().toString(), modelET.getText().toString(), yearET.getText().toString()));
+                            }
+                        }).start();
                     }else {
                         editableCar.setName(nameET.getText().toString());
                         editableCar.setModel(modelET.getText().toString());
                         editableCar.setYear(yearET.getText().toString());
-                        dao.update(editableCar);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dao.update(editableCar);
+                            }
+                        }).start();
                     }
                     Intent intent = new Intent(EditorActivity.this, CatalogActivity.class);
                     startActivity(intent);
@@ -159,10 +169,20 @@ public class EditorActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dao.delete(editableCar);
-                dialog.dismiss();
-                Intent intent = new Intent(EditorActivity.this, CatalogActivity.class);
-                startActivity(intent);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dao.delete(editableCar);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
+                                Intent intent = new Intent(EditorActivity.this, CatalogActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }).start();
             }
         });
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

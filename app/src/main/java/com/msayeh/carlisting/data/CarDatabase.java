@@ -21,7 +21,6 @@ abstract public class CarDatabase extends RoomDatabase {
                     CarDatabase.class,
                     "car_database")
                     .addCallback(roomCallback)
-                    .allowMainThreadQueries()
                     .build();
         }
 

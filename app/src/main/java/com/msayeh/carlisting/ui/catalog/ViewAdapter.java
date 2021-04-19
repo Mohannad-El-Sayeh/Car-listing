@@ -9,11 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.msayeh.carlisting.R;
 import com.msayeh.carlisting.data.Car;
 import com.msayeh.carlisting.data.CarDao;
-import com.msayeh.carlisting.data.CarDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ViewAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
@@ -36,8 +33,13 @@ public class ViewAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     public void emptyTrash() {
         if(deletedCar != null){
-            dao.delete(deletedCar);
-            deletedCar = null;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    dao.delete(deletedCar);
+                    deletedCar = null;
+                }
+            }).start();
         }
     }
 
@@ -48,7 +50,12 @@ public class ViewAdapter extends RecyclerView.Adapter<CarViewHolder> {
     }
 
     public void removeAllCars() {
-        dao.deleteAllCars();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dao.deleteAllCars();
+            }
+        }).start();
         cars.clear();
     }
 

@@ -50,13 +50,23 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
         dao = database.carDao();
 
 
-        cars = dao.getAllCars();
-        if (cars.isEmpty()) {
-            noDataTV.setVisibility(View.VISIBLE);
-        }
-        progressBar.setVisibility(View.GONE);
-        mAdapter = new ViewAdapter(cars, CatalogActivity.this, dao);
-        recyclerView.setAdapter(mAdapter);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cars = dao.getAllCars();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (cars.isEmpty()) {
+                            noDataTV.setVisibility(View.VISIBLE);
+                        }
+                        progressBar.setVisibility(View.GONE);
+                        mAdapter = new ViewAdapter(cars, CatalogActivity.this, dao);
+                        recyclerView.setAdapter(mAdapter);
+                    }
+                });
+            }
+        }).start();
 
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(
