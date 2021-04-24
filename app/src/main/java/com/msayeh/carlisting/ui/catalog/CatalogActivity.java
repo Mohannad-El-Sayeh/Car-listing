@@ -143,7 +143,7 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
 
         @Override
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            dX = dX/10;
+            dX = dX/5;
 
             super.onChildDraw(c, recyclerView, viewHolder, dX,
                     dY, actionState, isCurrentlyActive);
