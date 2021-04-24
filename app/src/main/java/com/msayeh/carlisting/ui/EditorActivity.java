@@ -92,6 +92,7 @@ public class EditorActivity extends AppCompatActivity {
                         }).start();
                     }
                     Intent intent = new Intent(EditorActivity.this, CatalogActivity.class);
+                    finish();
                     startActivity(intent);
                 }else {
                     Snackbar.make(parentView, R.string.not_valid_data, BaseTransientBottomBar.LENGTH_SHORT).show();

@@ -3,12 +3,15 @@ package com.msayeh.carlisting.ui.catalog;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +37,8 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
     RecyclerView recyclerView;
     ProgressBar progressBar;
     TextView noDataTV;
+    Drawable deletionIcon;
+    Drawable deletionBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,10 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
         recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
         noDataTV = findViewById(R.id.tv_no_data);
+
+        deletionIcon = ContextCompat.getDrawable(this,
+                R.drawable.ic_baseline_delete_on_swipe);
+        deletionBackground = ContextCompat.getDrawable(this, R.drawable.card_deletion_background);
 
         CarDatabase database = CarDatabase.getInstance(this);
         dao = database.carDao();
@@ -119,7 +128,7 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
         return true;
     }
 
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -130,6 +139,40 @@ public class CatalogActivity extends AppCompatActivity implements ViewAdapter.On
             int position = viewHolder.getAdapterPosition();
             onCarSwiped(cars.get(position));
 
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            dX = dX/10;
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX,
+                    dY, actionState, isCurrentlyActive);
+
+            View itemView = viewHolder.itemView;
+            int backgroundCornerOffset = itemView.getWidth() - 16;
+
+            int iconMargin = (itemView.getHeight() - deletionIcon.getIntrinsicHeight()) / 3;
+            int iconTop = itemView.getTop() + (itemView.getHeight() - deletionIcon.getIntrinsicHeight()) / 2;
+            int iconBottom = iconTop + deletionIcon.getIntrinsicHeight();
+
+            if(dX < 0) { //left swipe
+                int iconLeft = itemView.getRight() - iconMargin - deletionIcon.getIntrinsicWidth();
+                int iconRight = itemView.getRight() - iconMargin;
+                deletionIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom);
+
+                deletionBackground.setBounds(itemView.getRight() + ((int) dX) - backgroundCornerOffset,
+                        itemView.getTop(), itemView.getRight(), itemView.getBottom());
+            }
+            else { //unswiped
+                deletionBackground.setBounds(0, 0, 0, 0);
+            }
+            deletionBackground.draw(c);
+            deletionIcon.draw(c);
+        }
+
+        @Override
+        public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
+            return 0.1f;
         }
 
     };
